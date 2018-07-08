@@ -2,16 +2,7 @@ import React from 'react';
 import TaskList from '../TaskList/TaskList';
 import styled from 'styled-components';
 
-const sampleTasks = [
-  {
-    title: 'Some Task 1',
-    description: 'some great task'
-  },
-  {
-    title: 'Some Task 2',
-    description: 'another great task'
-  }
-]
+const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
 
 const TaskBoardWrapper = styled.div`
   display: flex;
@@ -31,14 +22,13 @@ const TaskColumnTitle = styled.h2`
 `;
 
 const TaskBoard = props => {
-  const {statuses} = props;
   return (
     <TaskBoardWrapper>
-      {statuses.map( (status,index) => {
+      {sampleStatuses.map( (status,index) => {
         return (
           <TaskColumnWrapper key={index}>
             <TaskColumnTitle> {status} </TaskColumnTitle>
-            <TaskList tasks={sampleTasks} />
+            <TaskList tasks={props.tasks.filter( task => task.status === status)} />
           </TaskColumnWrapper>
         )
       })}
