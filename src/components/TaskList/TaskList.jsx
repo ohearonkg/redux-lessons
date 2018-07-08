@@ -1,13 +1,26 @@
 import React from 'react';
 import Task from '../Task/Task';
+import styled from 'styled-components';
+
+const TaskListWrapper = styled.div`
+  margin-top: 10px;
+`;
+
+const TaskWrapper = styled.div`
+  &:nth-child(n+2) {
+    margin-top: 10px;
+  }
+`;
 
 const TaskList = props => {
   return (
-    <div>
+    <TaskListWrapper>
       {props.tasks.map( (task,index) => 
-          <Task key={index} title={task.title} />
+        <TaskWrapper key={index}>
+          <Task title={task.title} description={task.description}/>
+        </TaskWrapper>
       )}
-    </div>
+    </TaskListWrapper>
   ) 
 }
 
