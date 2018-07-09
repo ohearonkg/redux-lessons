@@ -6,7 +6,7 @@ import {getToDos} from './actions/index';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchToDos;
+    this.props.fetchToDos();
   }
 
   render() {
@@ -26,7 +26,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchToDos: dispatch(getToDos())
+    fetchToDos: () => dispatch(getToDos())
   }
 }
 
