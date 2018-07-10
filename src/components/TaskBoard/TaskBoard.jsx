@@ -1,12 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import TaskList from '../TaskList/TaskList';
 import NewTaskForm from '../NewTaskForm/NewTaskForm';
-
-import styled from 'styled-components';
+import CustomButton from '../CustomButton/CustomButton';
 
 const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
 
 const TaskBoardWrapper = styled.div`
+  padding: 20px;
+`;
+
+const AddToDoButtonWrapper = styled.div`
+  text-align: right;
+`;
+
+const TaskBoardColumnsWrapper = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px 0;
@@ -14,7 +22,10 @@ const TaskBoardWrapper = styled.div`
 
 const TaskColumnWrapper = styled.div`
   flex: 1 1 auto;
-  padding: 0 20px;
+
+  &:nth-child(n+2){
+    padding-left: 20px;
+  }
 `;
 
 const TaskColumnTitle = styled.h2`
@@ -25,8 +36,13 @@ const TaskColumnTitle = styled.h2`
 
 const TaskBoard = props => {
   return (
-    <div>
-      <TaskBoardWrapper>
+    <TaskBoardWrapper>
+
+      <AddToDoButtonWrapper>
+        <CustomButton text="Add To Do" />
+      </AddToDoButtonWrapper>
+
+      <TaskBoardColumnsWrapper>
         {sampleStatuses.map( (status,index) => {
           return (
             <TaskColumnWrapper key={index}>
@@ -35,9 +51,11 @@ const TaskBoard = props => {
             </TaskColumnWrapper>
           )
         })}
-      </TaskBoardWrapper>
+      </TaskBoardColumnsWrapper>
+
       <NewTaskForm />
-    </div>
+      
+    </TaskBoardWrapper>
   )
 }
 

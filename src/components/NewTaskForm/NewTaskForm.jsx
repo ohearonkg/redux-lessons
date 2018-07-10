@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { addToDo } from '../../actions/index';
+import CustomButton from '../CustomButton/CustomButton';
 
 const TaskFormInput = styled.input`
   margin-left: 10px;
@@ -10,12 +11,6 @@ const TaskFormInput = styled.input`
   &:nth-child(n+2){
     margin-top: 10px;
   }
-`;
-
-const TaskFormSubmitButton = styled.button`
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
 `;
 
 class NewTaskForm extends Component {
@@ -55,7 +50,7 @@ class NewTaskForm extends Component {
       <form onSubmit={this._handleSubmit}>
           <TaskFormInput placeholder="title" type="text" onChange={this._handleTitleChange} value={this.state.title} />
           <TaskFormInput placeholder="description" type="text" onChange={this._handleDescriptionChange} value={this.state.description} />
-          <TaskFormSubmitButton type="submit"> Save </TaskFormSubmitButton>
+          <CustomButton type="submit" text="Save"/> 
       </form>
     )
   }
