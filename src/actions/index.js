@@ -1,5 +1,6 @@
 const GET_TODOS = 'GET_TODOS';
 const ADD_TO_DO = 'ADD_TO_DO';
+const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
 
 const getToDos = () => {
   return {
@@ -17,9 +18,17 @@ const addToDo = (title,description) => {
   }
 }
 
+const toggleAddToDoForm = () => {
+  return {
+    type: TOGGLE_ADD_TO_DO_FORM
+  }
+}
+
 export {
   GET_TODOS,
   getToDos, 
   ADD_TO_DO,
-  addToDo
+  addToDo,
+  TOGGLE_ADD_TO_DO_FORM,
+  toggleAddToDoForm
 }

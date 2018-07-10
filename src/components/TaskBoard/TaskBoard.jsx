@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import TaskList from '../TaskList/TaskList';
 import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import CustomButton from '../CustomButton/CustomButton';
+import { connect } from 'react-redux';
+import { toggleAddToDoForm } from '../../actions/index';
 
 const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
 
@@ -38,25 +40,43 @@ const TaskBoard = props => {
   return (
     <TaskBoardWrapper>
 
-      <AddToDoButtonWrapper>
-        <CustomButton text="Add To Do" />
-      </AddToDoButtonWrapper>
+      {!props.addToDoFormShown && 
+        <React.Fragment>
+          <AddToDoButtonWrapper>
+            <CustomButton text="Add To Do" onClickFunction={props.toggleAddToDoForm} />
+          </AddToDoButtonWrapper>
 
-      <TaskBoardColumnsWrapper>
-        {sampleStatuses.map( (status,index) => {
-          return (
-            <TaskColumnWrapper key={index}>
-              <TaskColumnTitle> {status} </TaskColumnTitle>
-              <TaskList tasks={props.tasks.filter( task => task.status === status)} />
-            </TaskColumnWrapper>
-          )
-        })}
-      </TaskBoardColumnsWrapper>
+          <TaskBoardColumnsWrapper>
+            {sampleStatuses.map( (status,index) => {
+              return (
+                <TaskColumnWrapper key={index}>
+                  <TaskColumnTitle> {status} </TaskColumnTitle>
+                  <TaskList tasks={props.tasks.filter( task => task.status === status)} />
+                </TaskColumnWrapper>
+              )
+            })}
+          </TaskBoardColumnsWrapper>
+        </React.Fragment>
+      }
 
-      <NewTaskForm />
+      {props.addToDoFormShown && 
+        <NewTaskForm />
+      }
       
     </TaskBoardWrapper>
   )
 }
 
-export default TaskBoard;
+const mapStateToProps = state => {
+  return {
+    addToDoFormShown: state.addToDoFormShown
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleAddToDoForm: () => dispatch(toggleAddToDoForm())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskBoard);
