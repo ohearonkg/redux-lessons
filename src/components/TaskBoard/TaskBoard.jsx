@@ -1,5 +1,7 @@
 import React from 'react';
 import TaskList from '../TaskList/TaskList';
+import NewTaskForm from '../NewTaskForm/NewTaskForm';
+
 import styled from 'styled-components';
 
 const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
@@ -23,16 +25,19 @@ const TaskColumnTitle = styled.h2`
 
 const TaskBoard = props => {
   return (
-    <TaskBoardWrapper>
-      {sampleStatuses.map( (status,index) => {
-        return (
-          <TaskColumnWrapper key={index}>
-            <TaskColumnTitle> {status} </TaskColumnTitle>
-            <TaskList tasks={props.tasks.filter( task => task.status === status)} />
-          </TaskColumnWrapper>
-        )
-      })}
-    </TaskBoardWrapper>
+    <div>
+      <TaskBoardWrapper>
+        {sampleStatuses.map( (status,index) => {
+          return (
+            <TaskColumnWrapper key={index}>
+              <TaskColumnTitle> {status} </TaskColumnTitle>
+              <TaskList tasks={props.tasks.filter( task => task.status === status)} />
+            </TaskColumnWrapper>
+          )
+        })}
+      </TaskBoardWrapper>
+      <NewTaskForm />
+    </div>
   )
 }
 
