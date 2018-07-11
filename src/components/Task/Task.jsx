@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components'
+import StatusSelector from '../StatusSelector/StatusSelector';
 
 const TaskWrapper = styled.div`
   border-radius: 4px;
@@ -31,6 +32,7 @@ const TaskSectionDivider = styled.hr`
 const Task = props => {
   return (
     <TaskWrapper> 
+      <StatusSelector />
       <TaskTitleWrapper>
         {props.title} 
       </TaskTitleWrapper>

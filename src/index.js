@@ -10,7 +10,7 @@ import App from './App';
 const store = createStore(root, devToolsEnhancer() );
 
 if (module.hot) {
-  module.hot.accpect('./App', () => {
+  module.hot.accept('./App', () => {
     const NextApp = require('./App');
     ReactDOM.render(
       <Provider store={store}>
