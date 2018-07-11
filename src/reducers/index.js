@@ -38,12 +38,13 @@ const intialState = {
   addToDoFormShown: false
 }
 
-
 export default function root(state=intialState, action){
   switch(action.type){
+
     case GET_TODOS:
       return Object.assign({}, state, {tasks: sampleTasks});
-    case ADD_TO_DO:
+
+    case 'ADD_TO_DO':
       return Object.assign({}, state, {tasks: state.tasks.concat(
         {
           title: action.payload.title,
@@ -51,8 +52,10 @@ export default function root(state=intialState, action){
           status: 'TO DO'
         }
       )});
+
     case TOGGLE_ADD_TO_DO_FORM:
       return Object.assign({}, state, {addToDoFormShown: !state.addToDoFormShown})
+      
     default:
       return state;
   }
