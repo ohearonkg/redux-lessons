@@ -28,7 +28,10 @@ const toggleAddToDoForm = () => {
 const changeToDoStatus = (id, newStatus) => {
   return {
     type: CHANGE_TO_DO_STATUS,
-    id
+    payload: {
+      id,
+      newStatus
+    }
   }
 }
 

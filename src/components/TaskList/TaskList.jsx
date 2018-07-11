@@ -17,7 +17,7 @@ const TaskList = props => {
     <TaskListWrapper>
       {props.tasks.map( (task,index) => 
         <TaskWrapper key={index}>
-          <Task title={task.title} description={task.description}/>
+          <Task id={task.id} title={task.title} description={task.description}/>
         </TaskWrapper>
       )}
     </TaskListWrapper>
