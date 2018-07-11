@@ -4,32 +4,38 @@ const sampleTasks = [
   {
     title: 'A Todo Task',
     description: 'some great task',
-    status: 'TO DO'
+    status: 'TO DO',
+    id: 1
   },
   {
     title: 'A Todo Task',
     description: 'some great task',
-    status: 'TO DO'
+    status: 'TO DO',
+    id: 2
   },
   {
     title: 'A Todo Task',
     description: 'some great task',
-    status: 'TO DO'
+    status: 'TO DO',
+    id: 3
   },
   {
     title: 'In Progress Task',
     description: 'some great task',
-    status: 'IN PROGRESS'
+    status: 'IN PROGRESS',
+    id: 4,
   },
   {
     title: 'Done Task',
     description: 'this one is done',
-    status: 'DONE'
+    status: 'DONE',
+    id: 5
   },
   {
     title: 'Done Task',
     description: 'this one is done',
-    status: 'DONE'
+    status: 'DONE',
+    id: 6
   }
 ]
 
@@ -48,7 +54,8 @@ export default function root(state=intialState, action){
         {
           title: action.payload.title,
           description: action.payload.description,
-          status: 'TO DO'
+          status: 'TO DO',
+          id: state.tasks.length + 1
         }
       )});
     case TOGGLE_ADD_TO_DO_FORM:
