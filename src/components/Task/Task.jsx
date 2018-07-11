@@ -30,9 +30,13 @@ const TaskSectionDivider = styled.hr`
 `
 
 const Task = props => {
+  const _statusChanged = (newStatus) => {
+    console.log('NEW STATUS ' + newStatus);
+  }
+
   return (
     <TaskWrapper> 
-      <StatusSelector />
+      <StatusSelector statusChangedFunction={_statusChanged.bind(this)}/>
       <TaskTitleWrapper>
         {props.title} 
       </TaskTitleWrapper>
