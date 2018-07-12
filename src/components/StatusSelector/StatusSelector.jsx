@@ -20,7 +20,7 @@ const StatusSelector = props => {
         <select onChange={_handleChange.bind(this)}>
           {sampleStatuses.map( (status,index) => {
             return (
-              <option key={index}>
+              <option selected={props.status === status} key={index}>
                 {status}
               </option>
             )

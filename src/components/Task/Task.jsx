@@ -38,7 +38,7 @@ const Task = props => {
 
   return (
     <TaskWrapper> 
-      <StatusSelector statusChangedFunction={_statusChanged.bind(this)}/>
+      <StatusSelector statusChangedFunction={_statusChanged.bind(this)} status={props.status} />
       <TaskTitleWrapper>
         {props.title} 
       </TaskTitleWrapper>

@@ -2,7 +2,7 @@ import { GET_TODOS, ADD_TO_DO, TOGGLE_ADD_TO_DO_FORM, CHANGE_TO_DO_STATUS } from
 
 const sampleTasks = [
   {
-    title: 'A Todo Taski 1',
+    title: 'A Todo Task 1',
     description: 'some great task',
     status: 'TO DO',
     id: 1
@@ -65,21 +65,16 @@ export default function root(state=intialState, action){
       return Object.assign({}, state, {addToDoFormShown: !state.addToDoFormShown})
 
     case CHANGE_TO_DO_STATUS:
-      const selectedItem = state.tasks.find( task => {
-        return task.id === action.payload.id
-      });
+      const { payload } = action;
+      return {
+        tasks: state.tasks.map( task => {
+          if (task.id === payload.id) {
+            return Object.assign({}, task, {status: payload.newStatus})
+          } 
+          return task;
+        })
+      }
 
-      const indexOfSelectedItem = state.tasks.indexOf(selectedItem);
-      const newTasks = state.tasks.slice((indexOfSelectedItem + 1));
-      newTasks.push({
-        title: selectedItem.title,
-        description: selectedItem.description,
-        status: action.payload.newStatus,
-        id: selectedItem.id,
-      });
-      debugger;
-      return Object.assign({}, state, {tasks: newTasks});
-    
     default:
       return state;
   }
