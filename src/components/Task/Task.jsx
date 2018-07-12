@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components'
+import StatusSelector from '../StatusSelector/StatusSelector';
+import { connect } from 'react-redux';
+import { changeToDoStatus } from '../../actions';
 
 const TaskWrapper = styled.div`
   border-radius: 4px;
@@ -29,8 +32,13 @@ const TaskSectionDivider = styled.hr`
 `
 
 const Task = props => {
+  const _statusChanged = (newStatus) => {
+    props.changeStatusFunction(props.id,newStatus);
+  }
+
   return (
     <TaskWrapper> 
+      <StatusSelector statusChangedFunction={_statusChanged.bind(this)} status={props.status} />
       <TaskTitleWrapper>
         {props.title} 
       </TaskTitleWrapper>
@@ -44,4 +52,11 @@ const Task = props => {
   )
 }
 
-export default Task;
+const mapStateToProps = state => {return {}};
+const mapDispatchToProps = dispatch => {
+  return {
+    changeStatusFunction: (id, newStatus) => dispatch(changeToDoStatus(id, newStatus))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Task);

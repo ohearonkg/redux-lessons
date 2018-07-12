@@ -1,6 +1,7 @@
 const GET_TODOS = 'GET_TODOS';
 const ADD_TO_DO = 'ADD_TO_DO';
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
+const CHANGE_TO_DO_STATUS =  'CHANGE_TO_DO_STATUS'
 
 const getToDos = () => {
   return {
@@ -24,11 +25,24 @@ const toggleAddToDoForm = () => {
   }
 }
 
+const changeToDoStatus = (id, newStatus) => {
+  return {
+    type: CHANGE_TO_DO_STATUS,
+    payload: {
+      id,
+      newStatus
+    }
+  }
+}
+
+
 export {
   GET_TODOS,
   getToDos, 
   ADD_TO_DO,
   addToDo,
   TOGGLE_ADD_TO_DO_FORM,
-  toggleAddToDoForm
+  toggleAddToDoForm,
+  CHANGE_TO_DO_STATUS,
+  changeToDoStatus
 }
