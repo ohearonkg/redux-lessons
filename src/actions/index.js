@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {fetchTasks} from '../api/index';
 
 const ADD_TO_DO = 'ADD_TO_DO';
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
@@ -7,8 +7,7 @@ const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED'
 
 const getToDos = () => {
   return dispatch => {
-    axios.get('http://localhost:3001/tasks').then(res => {
-      console.log(res)
+    fetchTasks().then(res => {
       dispatch(fetchTasksSucceeded(res.data));
     });
   }
