@@ -37,6 +37,9 @@ const TaskColumnTitle = styled.h2`
 `;
 
 const TaskBoard = props => {
+  if (props.tasks === undefined) {
+    return null;
+  }
   return (
     <TaskBoardWrapper>
 

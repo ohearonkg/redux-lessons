@@ -1,11 +1,25 @@
-const GET_TODOS = 'GET_TODOS';
+import axios from 'axios';
+
 const ADD_TO_DO = 'ADD_TO_DO';
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
 const CHANGE_TO_DO_STATUS =  'CHANGE_TO_DO_STATUS'
+const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED'
 
 const getToDos = () => {
+  return dispatch => {
+    axios.get('http://localhost:3001/tasks').then(res => {
+      console.log(res)
+      dispatch(fetchTasksSucceeded(res.data));
+    });
+  }
+}
+
+const fetchTasksSucceeded = (tasks) => {
   return {
-    type: GET_TODOS
+    type: FETCH_TASKS_SUCCEEDED,
+    payload: {
+      tasks
+    }
   }
 }
 
@@ -37,12 +51,13 @@ const changeToDoStatus = (id, newStatus) => {
 
 
 export {
-  GET_TODOS,
   getToDos, 
   ADD_TO_DO,
   addToDo,
   TOGGLE_ADD_TO_DO_FORM,
   toggleAddToDoForm,
   CHANGE_TO_DO_STATUS,
-  changeToDoStatus
+  changeToDoStatus,
+  FETCH_TASKS_SUCCEEDED,
+  fetchTasksSucceeded
 }
