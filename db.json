@@ -1,0 +1,40 @@
+{
+  "tasks": [
+    {
+      "title": "A Todo Task 1",
+      "description": "some great task",
+      "status": "TO DO",
+      "id": 1
+    },
+    {
+      "title": "A Todo Task 2",
+      "description": "some great task",
+      "status": "TO DO",
+      "id": 2
+    },
+    {
+      "title": "A Todo Task 3",
+      "description": "some great task",
+      "status": "TO DO",
+      "id": 3
+    },
+    {
+      "title": "In Progress Task 4",
+      "description": "some great task",
+      "status": "IN PROGRESS",
+      "id": 4
+    },
+    {
+      "title": "Done Task 5",
+      "description": "this one is done",
+      "status": "DONE",
+      "id": 5
+    },
+    {
+      "title": "Done Task 6",
+      "description": "this one is done",
+      "status": "DONE",
+      "id": 6
+    }
+  ]
+}
