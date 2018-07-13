@@ -9,6 +9,22 @@ const client = axios.create({
   },
 });
 
+/**
+ * Function to get all tasks
+ */
 export function fetchTasks() {
   return client.get('/tasks');
+}
+
+/**
+ * Function to save new task
+ */
+export function createTask(title,description) {
+  return client.post('/tasks',
+    {
+      title,
+      description,
+      status: 'TO DO'
+    }
+  )
 }

@@ -17,10 +17,10 @@ const StatusSelector = props => {
     <form>
       <label>
         Status:
-        <select onChange={_handleChange.bind(this)}>
+        <select onChange={_handleChange.bind(this)} value={props.status}>
           {sampleStatuses.map( (status,index) => {
             return (
-              <option selected={props.status === status} key={index}>
+              <option key={index}>
                 {status}
               </option>
             )

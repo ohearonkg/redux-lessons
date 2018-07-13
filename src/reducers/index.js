@@ -1,8 +1,8 @@
 import { 
-  ADD_TO_DO, 
+  FETCH_TASKS_SUCCEEDED,
+  CREATE_TASK_SUCCEEDED,
   TOGGLE_ADD_TO_DO_FORM, 
   CHANGE_TO_DO_STATUS, 
-  FETCH_TASKS_SUCCEEDED
 } from '../actions/index';
 
 const intialState = {
@@ -17,13 +17,13 @@ export default function root(state=intialState, action){
     case FETCH_TASKS_SUCCEEDED:
       return Object.assign({}, state, {tasks: action.payload.tasks});
 
-    case ADD_TO_DO:
+    case CREATE_TASK_SUCCEEDED:
       return Object.assign({}, state, {tasks: state.tasks.concat(
         {
-          title: action.payload.title,
-          description: action.payload.description,
-          status: 'TO DO',
-          id: state.tasks.length + 1
+          title: action.payload.task.title,
+          description: action.payload.task.description,
+          status: action.payload.task.status,
+          id: action.payload.task.id
         }
       )});
 
