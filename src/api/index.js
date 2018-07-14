@@ -28,3 +28,11 @@ export function createTask(title,description) {
     }
   )
 }
+
+/**
+ * Function to update the status
+ * of a current task
+ */
+export function updateTaskStatus(id, title, description, newStatus) {
+  return client.put(`/tasks/${id}`, {title, description, status: newStatus});
+}

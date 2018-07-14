@@ -1,9 +1,9 @@
 import * as api from '../api/index';
 
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
-const CHANGE_TO_DO_STATUS =  'CHANGE_TO_DO_STATUS';
 const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED';
 const CREATE_TASK_SUCCEEDED = 'CREATE_TASK_SUCCEEDED';
+const UPDATE_TASK_STATUS_SUCCEEDED = 'UPDATE_TASK_STATUS_SUCCEEDED';
 
 /**
  * Async action creator to fetch
@@ -34,7 +34,6 @@ const createTask = (title,description) => {
   return dispatch => {
     api.createTask(title,description).then(
       res => {
-        console.log(res.data);
         dispatch(createTaskSucceeded(res.data));
       }
     )
@@ -57,9 +56,18 @@ const toggleAddToDoForm = () => {
   }
 }
 
-const changeToDoStatus = (id, newStatus) => {
+const updateTaskStatus = (id, title, description, newStatus) => {
+  return dispatch => {
+   api.updateTaskStatus(id, title, description, newStatus)
+    .then(res => {
+      dispatch(updateTaskStatusSucceeded(res.data.id, res.data.status));
+    });
+  }
+}
+
+const updateTaskStatusSucceeded = (id,newStatus) => {
   return {
-    type: CHANGE_TO_DO_STATUS,
+    type: UPDATE_TASK_STATUS_SUCCEEDED,
     payload: {
       id,
       newStatus
@@ -76,6 +84,6 @@ export {
   CREATE_TASK_SUCCEEDED,
   toggleAddToDoForm,
   TOGGLE_ADD_TO_DO_FORM,
-  changeToDoStatus,
-  CHANGE_TO_DO_STATUS,
+  updateTaskStatus,
+  UPDATE_TASK_STATUS_SUCCEEDED
   }
