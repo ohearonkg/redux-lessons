@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
 import {composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import root from './reducers/index';
+import tasksReducer from './reducers/tasksReducer';
 import './index.css';
 import App from './App';
 
 const store = createStore(
-  root, 
+  combineReducers({
+    tasksReducer
+  }),
   composeWithDevTools(
     applyMiddleware(thunk)
   )

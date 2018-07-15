@@ -20,7 +20,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasksReducer.tasks
   }
 }
 

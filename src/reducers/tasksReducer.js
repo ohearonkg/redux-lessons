@@ -4,14 +4,13 @@ import {
   TOGGLE_ADD_TO_DO_FORM, 
   UPDATE_TASK_STATUS_SUCCEEDED,
   FETCH_TASKS_STARTED
-} from '../actions/index';
+} from '../actions';
 
 const intialState = {
   tasks: [],
   addToDoFormShown: false,
   loading: false
 }
-
 
 export default function root(state=intialState, action){
   switch(action.type){
@@ -37,7 +36,6 @@ export default function root(state=intialState, action){
 
     case UPDATE_TASK_STATUS_SUCCEEDED:
       const { payload } = action;
-      debugger;
       return {
         tasks: state.tasks.map( task => {
           if (task.id === payload.id) {
