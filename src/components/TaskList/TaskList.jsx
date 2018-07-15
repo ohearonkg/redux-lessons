@@ -13,15 +13,21 @@ const TaskWrapper = styled.div`
 `;
 
 const TaskList = props => {
-  return (
-    <TaskListWrapper>
-      {props.tasks.map( (task,index) => 
-        <TaskWrapper key={index}>
-          <Task id={task.id} title={task.title} description={task.description} status={task.status} />
-        </TaskWrapper>
-      )}
-    </TaskListWrapper>
-  ) 
+  if (props.tasks.length === 0) {
+    return (
+      <h1> Loading... </h1>
+    )
+  } else {
+    return (
+      <TaskListWrapper>
+        {props.tasks.map( (task,index) => 
+          <TaskWrapper key={index}>
+            <Task id={task.id} title={task.title} description={task.description} status={task.status} />
+          </TaskWrapper>
+        )}
+      </TaskListWrapper>
+    ) 
+  }
 }
 
 export default TaskList;
