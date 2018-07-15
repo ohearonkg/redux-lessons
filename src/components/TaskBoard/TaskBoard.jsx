@@ -5,6 +5,7 @@ import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import CustomButton from '../CustomButton/CustomButton';
 import { connect } from 'react-redux';
 import { toggleAddToDoForm } from '../../actions/index';
+import FlashMessage from '../FlashMessage/FlashMessage';
 
 const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
 
@@ -37,11 +38,16 @@ const TaskColumnTitle = styled.h2`
 `;
 
 const TaskBoard = props => {
-  if (props.loading) {
+  if (props.loading && ! props.error) {
     return (
       <h1> Loading... </h1>
     )
-  } else {
+  } else if (props.loading && props.error) {
+    return (
+      <FlashMessage message={props.error} />
+    )
+  }
+  else {
     return (
       <TaskBoardWrapper>
 
@@ -76,7 +82,8 @@ const TaskBoard = props => {
 const mapStateToProps = state => {
   return {
     addToDoFormShown: state.tasksReducer.addToDoFormShown,
-    loading: state.tasksReducer.loading
+    loading: state.tasksReducer.loading,
+    error: state.tasksReducer.error
   }
 }
 

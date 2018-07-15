@@ -1,15 +1,17 @@
 import { 
+  FETCH_TASKS_STARTED,
   FETCH_TASKS_SUCCEEDED,
+  FETCH_TASKS_ERROR,
   CREATE_TASK_SUCCEEDED,
   TOGGLE_ADD_TO_DO_FORM, 
   UPDATE_TASK_STATUS_SUCCEEDED,
-  FETCH_TASKS_STARTED
 } from '../actions';
 
 const intialState = {
   tasks: [],
   addToDoFormShown: false,
-  loading: false
+  loading: false,
+  error: null
 }
 
 export default function root(state=intialState, action){
@@ -17,7 +19,10 @@ export default function root(state=intialState, action){
 
     case FETCH_TASKS_STARTED:
       return Object.assign({}, state, {loading: true});
-    
+   
+    case FETCH_TASKS_ERROR:
+      return Object.assign({}, state, {error: action.payload.error})
+
     case FETCH_TASKS_SUCCEEDED:
       return Object.assign({}, state, {tasks: action.payload.tasks, loading: false});
 

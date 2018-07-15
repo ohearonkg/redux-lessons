@@ -2,6 +2,7 @@ import * as api from '../api';
 
 const FETCH_TASKS_STARTED = 'FETCH_TASKS_STARTED';
 const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED';
+const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR';
 
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
 
@@ -16,11 +17,15 @@ const fetchTasks = () => {
   return dispatch => {
     dispatch(fetchTasksStarted())
 
-    api.fetchTasks().then(res => {
-      setTimeout( () => {
-        dispatch(fetchTasksSucceeded(res.data));
-      }, 2500);
-    });
+    api.fetchTasks()
+      .then(res => {
+        setTimeout( () => {
+          dispatch(fetchTasksSucceeded(res.data));
+        }, 2500);
+      })
+      .catch( error => {
+        dispatch(fetchTasksError(error.message))
+      });
   }
 }
 
@@ -35,6 +40,15 @@ const fetchTasksSucceeded = (tasks) => {
     type: FETCH_TASKS_SUCCEEDED,
     payload: {
       tasks
+    }
+  }
+}
+
+const fetchTasksError = error => {
+  return {
+    type: FETCH_TASKS_ERROR,
+    payload: {
+      error
     }
   }
 }
@@ -93,6 +107,7 @@ export {
   fetchTasks, 
   FETCH_TASKS_STARTED,
   FETCH_TASKS_SUCCEEDED,
+  FETCH_TASKS_ERROR,
   fetchTasksSucceeded,
   createTask,
   CREATE_TASK_SUCCEEDED,
