@@ -1,4 +1,5 @@
 import * as api from '../api';
+import { CALL_API } from '../middleware/api';
 
 const FETCH_TASKS_STARTED = 'FETCH_TASKS_STARTED';
 const FETCH_TASKS_SUCCEEDED = 'FETCH_TASKS_SUCCEEDED';
@@ -14,44 +15,37 @@ const UPDATE_TASK_STATUS_SUCCEEDED = 'UPDATE_TASK_STATUS_SUCCEEDED';
  * the tasks from our API
  */
 const fetchTasks = () => {
-  return dispatch => {
-    dispatch(fetchTasksStarted())
-
-    api.fetchTasks()
-      .then(res => {
-        setTimeout( () => {
-          dispatch(fetchTasksSucceeded(res.data));
-        }, 2500);
-      })
-      .catch( error => {
-        dispatch(fetchTasksError(error.message))
-      });
-  }
-}
-
-const fetchTasksStarted = () => {
   return {
-    type: FETCH_TASKS_STARTED
-  }
-}
-
-const fetchTasksSucceeded = (tasks) => {
-  return {
-    type: FETCH_TASKS_SUCCEEDED,
-    payload: {
-      tasks
+    [CALL_API]: {
+      types: [FETCH_TASKS_STARTED, FETCH_TASKS_SUCCEEDED, FETCH_TASKS_ERROR],
+      endpoint: '/tasks'
     }
   }
 }
 
-const fetchTasksError = error => {
-  return {
-    type: FETCH_TASKS_ERROR,
-    payload: {
-      error
-    }
-  }
-}
+// const fetchTasksStarted = () => {
+//   return {
+//     type: FETCH_TASKS_STARTED
+//   }
+// }
+
+// const fetchTasksSucceeded = (tasks) => {
+//   return {
+//     type: FETCH_TASKS_SUCCEEDED,
+//     payload: {
+//       tasks
+//     }
+//   }
+// }
+
+// const fetchTasksError = error => {
+//   return {
+//     type: FETCH_TASKS_ERROR,
+//     payload: {
+//       error
+//     }
+//   }
+// }
 
 /**
  * Async action creator to add a task
@@ -108,7 +102,7 @@ export {
   FETCH_TASKS_STARTED,
   FETCH_TASKS_SUCCEEDED,
   FETCH_TASKS_ERROR,
-  fetchTasksSucceeded,
+  // fetchTasksSucceeded,
   createTask,
   CREATE_TASK_SUCCEEDED,
   toggleAddToDoForm,

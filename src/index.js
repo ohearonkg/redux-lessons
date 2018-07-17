@@ -5,6 +5,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import {composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
+import apiMiddleware from './middleware/api';
 import tasksReducer from './reducers/tasksReducer';
 import './index.css';
 import App from './App';
@@ -14,7 +15,10 @@ const store = createStore(
     tasksReducer
   }),
   composeWithDevTools(
-    applyMiddleware(thunk)
+    applyMiddleware(
+      thunk,
+      apiMiddleware
+    )
   )
 );
 

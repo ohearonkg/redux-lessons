@@ -24,7 +24,11 @@ export default function root(state=intialState, action){
       return Object.assign({}, state, {error: action.payload.error})
 
     case FETCH_TASKS_SUCCEEDED:
-      return Object.assign({}, state, {tasks: action.payload.tasks, loading: false});
+      return {
+        ...state, 
+        tasks: action.payload, 
+        loading: false
+      }
 
     case CREATE_TASK_SUCCEEDED:
       return Object.assign({}, state, {tasks: state.tasks.concat(
