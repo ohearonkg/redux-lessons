@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import TaskBoard from './components/TaskBoard/TaskBoard';
 import {connect} from 'react-redux';
-import {getToDos} from './actions/index';
+import {fetchTasks} from './actions/index';
 
 class App extends Component {
   componentDidMount() {
-    this.props.fetchToDos();
+    this.props.fetchTasks();
   }
 
   render() {
@@ -20,13 +20,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.tasks
+    tasks: state.tasksReducer.tasks
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchToDos: () => dispatch(getToDos())
+    fetchTasks: () => dispatch(fetchTasks())
   }
 }
 

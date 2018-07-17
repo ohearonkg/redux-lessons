@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components'
 import StatusSelector from '../StatusSelector/StatusSelector';
 import { connect } from 'react-redux';
-import { changeToDoStatus } from '../../actions';
+import { updateTaskStatus } from '../../actions';
 
 const TaskWrapper = styled.div`
   border-radius: 4px;
@@ -33,7 +33,7 @@ const TaskSectionDivider = styled.hr`
 
 const Task = props => {
   const _statusChanged = (newStatus) => {
-    props.changeStatusFunction(props.id,newStatus);
+    props.changeStatusFunction(props.id, props.title, props.description, newStatus,);
   }
 
   return (
@@ -55,7 +55,7 @@ const Task = props => {
 const mapStateToProps = state => {return {}};
 const mapDispatchToProps = dispatch => {
   return {
-    changeStatusFunction: (id, newStatus) => dispatch(changeToDoStatus(id, newStatus))
+    changeStatusFunction: (id,title,description, newStatus) => dispatch(updateTaskStatus(id, title, description, newStatus))
   }
 }
 

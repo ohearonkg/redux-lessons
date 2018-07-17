@@ -5,6 +5,7 @@ import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import CustomButton from '../CustomButton/CustomButton';
 import { connect } from 'react-redux';
 import { toggleAddToDoForm } from '../../actions/index';
+import FlashMessage from '../FlashMessage/FlashMessage';
 
 const sampleStatuses = ['TO DO', 'IN PROGRESS', 'DONE']
 
@@ -37,39 +38,52 @@ const TaskColumnTitle = styled.h2`
 `;
 
 const TaskBoard = props => {
-  return (
-    <TaskBoardWrapper>
+  if (props.loading && ! props.error) {
+    return (
+      <h1> Loading... </h1>
+    )
+  } else if (props.loading && props.error) {
+    return (
+      <FlashMessage message={props.error} />
+    )
+  }
+  else {
+    return (
+      <TaskBoardWrapper>
 
-      {!props.addToDoFormShown && 
-        <React.Fragment>
-          <AddToDoButtonWrapper>
-            <CustomButton text="Add To Do" onClickFunction={props.toggleAddToDoForm} />
-          </AddToDoButtonWrapper>
+        {!props.addToDoFormShown && 
+          <React.Fragment>
+            <AddToDoButtonWrapper>
+              <CustomButton text="Add To Do" onClickFunction={props.toggleAddToDoForm} />
+            </AddToDoButtonWrapper>
 
-          <TaskBoardColumnsWrapper>
-            {sampleStatuses.map( (status,index) => {
-              return (
-                <TaskColumnWrapper key={index}>
-                  <TaskColumnTitle> {status} </TaskColumnTitle>
-                  <TaskList tasks={props.tasks.filter( task => task.status === status)} />
-                </TaskColumnWrapper>
-              )
-            })}
-          </TaskBoardColumnsWrapper>
-        </React.Fragment>
-      }
+            <TaskBoardColumnsWrapper>
+              {sampleStatuses.map( (status,index) => {
+                return (
+                  <TaskColumnWrapper key={index}>
+                    <TaskColumnTitle> {status} </TaskColumnTitle>
+                    <TaskList tasks={props.tasks.filter( task => task.status === status)} />
+                  </TaskColumnWrapper>
+                )
+              })}
+            </TaskBoardColumnsWrapper>
+          </React.Fragment>
+        }
 
-      {props.addToDoFormShown && 
-        <NewTaskForm />
-      }
-      
-    </TaskBoardWrapper>
-  )
+        {props.addToDoFormShown && 
+          <NewTaskForm />
+        }
+        
+      </TaskBoardWrapper>
+    )
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    addToDoFormShown: state.addToDoFormShown
+    addToDoFormShown: state.tasksReducer.addToDoFormShown,
+    loading: state.tasksReducer.loading,
+    error: state.tasksReducer.error
   }
 }
 

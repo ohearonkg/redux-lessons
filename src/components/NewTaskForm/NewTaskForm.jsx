@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { addToDo, toggleAddToDoForm } from '../../actions/index';
+import { createTask, toggleAddToDoForm } from '../../actions/index';
 import CustomButton from '../CustomButton/CustomButton';
 
 const TaskFormInput = styled.input`
@@ -41,7 +41,7 @@ class NewTaskForm extends Component {
 
   _handleSubmit(e){
     e.preventDefault();
-    this.props.addToDo(this.state.title,this.state.description);
+    this.props.createTask(this.state.title,this.state.description);
     this._resetFormState();
     this.props.toggleAddToDoForm();
   }
@@ -63,7 +63,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addToDo: (title,description) => dispatch(addToDo(title,description)),
+    createTask: (title,description) => dispatch(createTask(title,description)),
     toggleAddToDoForm: () => dispatch(toggleAddToDoForm())
   }
 }
