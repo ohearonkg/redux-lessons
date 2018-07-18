@@ -7,7 +7,10 @@ const FETCH_TASKS_ERROR = 'FETCH_TASKS_ERROR';
 
 const TOGGLE_ADD_TO_DO_FORM =  'TOGGLE_ADD_TO_DO_FORM';
 
+const CREATE_TASK_STARTED = 'CREATE_TASK_STARTED'
 const CREATE_TASK_SUCCEEDED = 'CREATE_TASK_SUCCEEDED';
+const CREATE_TASK_ERROR = 'CREATE_TASK_ERROR'
+
 const UPDATE_TASK_STATUS_SUCCEEDED = 'UPDATE_TASK_STATUS_SUCCEEDED';
 
 /**
@@ -23,50 +26,21 @@ const fetchTasks = () => {
   }
 }
 
-// const fetchTasksStarted = () => {
-//   return {
-//     type: FETCH_TASKS_STARTED
-//   }
-// }
-
-// const fetchTasksSucceeded = (tasks) => {
-//   return {
-//     type: FETCH_TASKS_SUCCEEDED,
-//     payload: {
-//       tasks
-//     }
-//   }
-// }
-
-// const fetchTasksError = error => {
-//   return {
-//     type: FETCH_TASKS_ERROR,
-//     payload: {
-//       error
-//     }
-//   }
-// }
-
 /**
  * Async action creator to add a task
  * to our API endpoint.
  */
 const createTask = (title,description) => {
-  return dispatch => {
-    api.createTask(title,description).then(
-      res => {
-        dispatch(createTaskSucceeded(res.data));
-      }
-    )
-  }
-}
-
-
-const createTaskSucceeded = (task) => {
   return {
-    type: CREATE_TASK_SUCCEEDED,
-    payload: {
-      task
+    [CALL_API]: {
+      types: [CREATE_TASK_STARTED, CREATE_TASK_SUCCEEDED, CREATE_TASK_ERROR],
+      endpoint: '/tasks',
+      method: 'POST',
+      body: {
+        title,
+        description,
+        status: 'TO DO'
+      }
     }
   }
 }
@@ -102,9 +76,12 @@ export {
   FETCH_TASKS_STARTED,
   FETCH_TASKS_SUCCEEDED,
   FETCH_TASKS_ERROR,
-  // fetchTasksSucceeded,
+
   createTask,
+  CREATE_TASK_STARTED,
   CREATE_TASK_SUCCEEDED,
+  CREATE_TASK_ERROR,
+
   toggleAddToDoForm,
   TOGGLE_ADD_TO_DO_FORM,
   updateTaskStatus,

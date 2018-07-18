@@ -2,7 +2,11 @@ import {
   FETCH_TASKS_STARTED,
   FETCH_TASKS_SUCCEEDED,
   FETCH_TASKS_ERROR,
+
+  CREATE_TASK_STARTED,
   CREATE_TASK_SUCCEEDED,
+  CREATE_TASK_ERROR,
+
   TOGGLE_ADD_TO_DO_FORM, 
   UPDATE_TASK_STATUS_SUCCEEDED,
 } from '../actions';
@@ -18,30 +22,53 @@ export default function root(state=intialState, action){
   switch(action.type){
 
     case FETCH_TASKS_STARTED:
-      return Object.assign({}, state, {loading: true});
+      return {
+        ...state, 
+        loading: true
+      }
    
     case FETCH_TASKS_ERROR:
-      return Object.assign({}, state, {error: action.payload.error})
+      return {
+        ...state,
+        error: action.error
+      }
 
     case FETCH_TASKS_SUCCEEDED:
       return {
         ...state, 
-        tasks: action.payload, 
+        tasks: action.response.data, 
         loading: false
       }
 
+    case CREATE_TASK_STARTED:
+      return {
+        ...state,
+        loading: true
+      }
+
     case CREATE_TASK_SUCCEEDED:
-      return Object.assign({}, state, {tasks: state.tasks.concat(
-        {
-          title: action.payload.task.title,
-          description: action.payload.task.description,
-          status: action.payload.task.status,
-          id: action.payload.task.id
+      return {
+        ...state, 
+        tasks: state.tasks.concat({
+          title: action.response.data.title,
+          description: action.response.data.description,
+          status: action.response.data.status,
+          id: action.response.data.id
+        }),
+        loading: false
+      }
+    
+      case CREATE_TASK_ERROR:
+        return {
+          ...state,
+          error: action.error
         }
-      )});
 
     case TOGGLE_ADD_TO_DO_FORM:
-      return Object.assign({}, state, {addToDoFormShown: !state.addToDoFormShown})
+      return {
+        ...state, 
+        addToDoFormShown: !state.addToDoFormShown
+      }
 
     case UPDATE_TASK_STATUS_SUCCEEDED:
       const { payload } = action;
